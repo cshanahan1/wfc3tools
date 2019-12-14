@@ -12,12 +12,10 @@ from .util import error_code
 __taskname__ = "wf3ccd"
 
 
-def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
-           blevcorr="PERFORM", biascorr="PERFORM", flashcorr="PERFORM",
-           verbose=False, quiet=True, log_func=print):
+def wf3ccd(input, output=None, verbose=False, quiet=True, log_func=print):
 
     """ 
-    Runs the calwf3 subtask `wf3ccd` on input raw UVIS image
+    Runs the calwf3 subtask `wf3ccd` on input raw UVIS image, outputs a 
 
     """
 
@@ -26,21 +24,6 @@ def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
 
     if verbose:
         call_list += ['-v', '-t']
-
-    if (dqicorr == "PERFORM"):
-        call_list.append('-dqi')
-
-    if (atodcorr == "PERFORM"):
-        call_list.append('-atod')
-
-    if (blevcorr == "PERFORM"):
-        call_list.append('-blev')
-
-    if (biascorr == "PERFORM"):
-        call_list.append('-bias')
-
-    if (flashcorr == "PERFORM"):
-        call_list.append('-flash')
 
     infiles, dummy = parseinput.parseinput(input)
     if "_asn" in input:
