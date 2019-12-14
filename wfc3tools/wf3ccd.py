@@ -15,7 +15,26 @@ __taskname__ = "wf3ccd"
 def wf3ccd(input, output=None, verbose=False, quiet=True, log_func=print):
 
     """ 
-    Runs the calwf3 subtask `wf3ccd` on input raw UVIS image, outputs a 
+    Runs the calwf3 calibration subtask wf3ccd on a single input WFC3 UVIS
+    image.
+
+    This routine contains the initial processing steps for all the WFC3 UVIS 
+    channel data. These steps are:
+
+    * DQICORR - initializing the data quality array
+    * ATODCORR - perform the a to d conversion correction
+    * BLEVCORR - subtract the bias level from the overscan region
+    * BIASCORR - subtract the bias image
+    * FLSHCORR - subtract the post-flash image
+
+    wf3ccd processing is controlled by the values of keywords in the input
+    image headers. Certain keywords, referred to as calibration switches, are
+    used to control which calibration steps are performed. Reference file
+    keywords indicate which reference files to use in the various calibration
+    steps. Users who wish to perform custom reprocessing of their data may
+    change the values of these keywords in the _raw FITS file primary headers
+    and then rerun the modified file through calwf3. See the WFC3 Data Handbook
+    for a more complete description of these keywords and their values.
 
     """
 
