@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 # get the auto update version for the call to teal help
 from .version import __version_date__, __version__
 
@@ -11,12 +9,6 @@ import subprocess
 from stsci.tools import parseinput
 from .util import error_code
 
-try:
-    from stsci.tools import teal
-    has_teal = True
-except ImportError:
-    has_teal = None
-    print("Teal not available")
 
 __taskname__ = "wf3ccd"
 
@@ -25,7 +17,10 @@ def wf3ccd(input, output=None, dqicorr="PERFORM", atodcorr="PERFORM",
            blevcorr="PERFORM", biascorr="PERFORM", flashcorr="PERFORM",
            verbose=False, quiet=True, log_func=print):
 
-    """Run the ``wf3ccd.e`` executable as from the shell."""
+    """ 
+    Runs the calwf3 subtask `wf3ccd` on input raw UVIS image
+
+    """
 
     call_list = ['wf3ccd.e']
     return_code = None
