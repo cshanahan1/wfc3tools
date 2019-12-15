@@ -36,6 +36,25 @@ def wf3ccd(input, output=None, verbose=False, quiet=True, log_func=print):
     and then rerun the modified file through calwf3. See the WFC3 Data Handbook
     for a more complete description of these keywords and their values.
 
+    Parameters
+    ----------
+    input : str
+        Single UVIS raw file. 
+    output : str
+        Desired output file name. If not specified, will be the rootname of the
+        input file appended with '_blv_tmp.fits'.
+    verbose : bool, optional
+        Print verbose time stamps.
+    quiet : bool, optional
+        Print messages only to trailer file.
+    log_func: func()
+        If not specified, the print function is used for logging to facilitate
+        use in the Jupyter notebook.
+    
+    Outputs
+    -------
+    <filename>_blv_tmp.fits : FITS file
+                Overscan-trimmed UVIS exposure (DN).
     """
 
     call_list = ['wf3ccd.e']
