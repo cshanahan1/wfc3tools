@@ -28,7 +28,7 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
     used to control which calibration steps are performed. Reference file
     keywords indicate which reference files to use in the various calibration
     steps. Users who wish to perform custom reprocessing of their data may
-    change the values of these keywords in the _raw FITS file primary headers
+    change the values of these keywords in the FITS file primary headers
     and then rerun the modified file through calwf3. See the WFC3 Data Handbook
     for a more complete description of these keywords and their values.
 
@@ -45,6 +45,8 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
         Print a detailed time stamp.
     save_tmp: bool
         Save temporary files.
+    verbose : bool, optional
+        Print verbose time stamps.
     debug: bool
         Print optional debugging statements.
     parallel: bool
@@ -53,10 +55,6 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
     log_func: func()
         If not specified, the print function is used for logging to facilitate
         use in the Jupyter notebook.
-    verbose : bool, optional
-        Print verbose time stamps.
-    quiet : bool, optional
-        Print messages only to trailer file.
 
     Outputs
     -------
@@ -110,34 +108,33 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
     call_list = ['calwf3.e']
     return_code = None
 
-    else:
-        if printtime:
-            call_list.append('-t')
+    if printtime:
+        call_list.append('-t')
 
-        if save_tmp:
-            call_list.append('-s')
+    if save_tmp:
+        call_list.append('-s')
 
-        if verbose:
-            call_list.append('-v')
+    if verbose:
+        call_list.append('-v')
 
-        if debug:
-            call_list.append('-d')
+    if debug:
+        call_list.append('-d')
 
-        if not parallel:
-            call_list.append('-1')
+    if not parallel:
+        call_list.append('-1')
 
-        infiles, dummy = parseinput.parseinput(input)
-        if len(parseinput.irafglob(input)) == 0:
-            raise IOError("No valid image specified")
-        if len(parseinput.irafglob(input)) > 1:
-            raise IOError("calwf3 can only accept 1 file for"
-                          "input at a time: {0}".format(infiles))
+    infiles, dummy = parseinput.parseinput(input)
+    if len(parseinput.irafglob(input)) == 0:
+        raise IOError("No valid image specified")
+    if len(parseinput.irafglob(input)) > 1:
+        raise IOError("calwf3 can only accept 1 file for"
+                      "input at a time: {0}".format(infiles))
 
-        for image in infiles:
-            if not os.path.exists(image):
-                raise IOError("Input file not found: {0}".format(image))
+    for image in infiles:
+        if not os.path.exists(image):
+            raise IOError("Input file not found: {0}".format(image))
 
-        call_list.append(input)
+    call_list.append(input)
 
     proc = subprocess.Popen(
         call_list,
