@@ -12,9 +12,10 @@ from .util import error_code
 __taskname__ = "wf32d"
 
 
-def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
-          flatcorr="PERFORM", shadcorr="PERFORM", photcorr="PERFORM",
-          verbose=False, quiet=True, debug=False, log_func=print):
+def wf32d(input, output=None, verbose=False, quiet=True, debug=False, 
+          log_func=print):
+
+
     """  Call the wf32d.e executable."""
 
     call_list = ['wf32d.e']
@@ -25,21 +26,6 @@ def wf32d(input, output=None, dqicorr="PERFORM", darkcorr="PERFORM",
 
     if debug:
         call_list.append('-d')
-
-    if (darkcorr == "PERFORM"):
-        call_list.append('-dark')
-
-    if (dqicorr == "PERFORM"):
-        call_list.append('-dqi')
-
-    if (flatcorr == "PERFORM"):
-        call_list.append('-flat')
-
-    if (shadcorr == "PERFORM"):
-        call_list.append('-shad')
-
-    if (photcorr == "PERFORM"):
-        call_list.append('-phot')
 
     infiles, dummy = parseinput.parseinput(input)
     if "_asn" in input:
