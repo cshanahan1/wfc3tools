@@ -32,8 +32,8 @@ def wf3ccd(input, output=None, verbose=False, quiet=True, log_func=print):
     used to control which calibration steps are performed. Reference file
     keywords indicate which reference files to use in the various calibration
     steps. Users who wish to perform custom reprocessing of their data may
-    change the values of these keywords in the _raw FITS file primary headers
-    and then rerun the modified file through calwf3. See the WFC3 Data Handbook
+    change the values of these keywords in the FITS file primary headers
+    and then rerun the modified file through wf3ccd. See the WFC3 Data Handbook
     for a more complete description of these keywords and their values.
 
     Parameters

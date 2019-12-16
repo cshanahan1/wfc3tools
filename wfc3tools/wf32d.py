@@ -15,8 +15,47 @@ __taskname__ = "wf32d"
 def wf32d(input, output=None, verbose=False, quiet=True, debug=False, 
           log_func=print):
 
+    """
+    Runs the calwf3 calibration subtask wf32d on a single input WFC3 UVIS
+    image.
 
-    """  Call the wf32d.e executable."""
+    This routine contains the secondary steps for all the WFC3 UVIS
+    channel data. These steps are:
+
+      * DARKCORR: dark current subtraction
+      * FLATCORR: flat-fielding
+      * PHOTCORR: photometric keyword calculations
+      * FLUXCORR: photometric normalization of the UVIS1 and UVIS2 chips
+
+    wf32d processing is controlled by the values of keywords in the input
+    image headers. Certain keywords, referred to as calibration switches, are
+    used to control which calibration steps are performed. Reference file
+    keywords indicate which reference files to use in the various calibration
+    steps. Users who wish to perform custom reprocessing of their data may
+    change the values of these keywords in the FITS file primary headers
+    and then rerun the modified file through wf32d. See the WFC3 Data Handbook
+    for a more complete description of these keywords and their values.
+
+    Parameters
+    ----------
+    input : str
+        Single UVIS raw file.
+    output : str
+        Desired output file name. If not specified, will be the rootname of the
+        input file appended with '_blv_tmp.fits'.
+    verbose : bool, optional
+        Print verbose time stamps.
+    quiet : bool, optional
+        Print messages only to trailer file.
+    log_func: func()
+        If not specified, the print function is used for logging to facilitate
+        use in the Jupyter notebook.
+
+    Outputs
+    -------
+    <filename>_blv_tmp.fits : FITS file
+                Overscan-trimmed UVIS exposure (DN).
+    """
 
     call_list = ['wf32d.e']
     return_code = None
