@@ -54,7 +54,8 @@ def calwf3(input=None, printtime=False, save_tmp=False, verbose=False,
         UVIS CTE correction.
     log_func: func()
         If not specified, the print function is used for logging to facilitate
-        use in the Jupyter notebook.
+        use in the Jupyter notebook. If None, no output will be printed or 
+        passed to the logging function.
 
     Outputs
     -------

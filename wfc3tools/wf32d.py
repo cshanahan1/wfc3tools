@@ -17,7 +17,7 @@ def wf32d(input, output=None, verbose=False, quiet=True, debug=False,
 
     """
     Runs the calwf3 calibration subtask wf32d on a single input WFC3 UVIS
-    image.
+    image, which must be overscanned-trimmed (blv_tmp or crj_tmp).
 
     This routine contains the secondary steps for all the WFC3 UVIS
     channel data. These steps are:
@@ -39,7 +39,7 @@ def wf32d(input, output=None, verbose=False, quiet=True, debug=False,
     Parameters
     ----------
     input : str
-        Single UVIS raw file.
+        Overscan-trimmed image (blv_tmp or crj_tmp).
     output : str
         Desired output file name. If not specified, will be the rootname of the
         input file appended with '_blv_tmp.fits'.
@@ -49,13 +49,15 @@ def wf32d(input, output=None, verbose=False, quiet=True, debug=False,
         Print messages only to trailer file.
     log_func: func()
         If not specified, the print function is used for logging to facilitate
-        use in the Jupyter notebook.
+        use in the Jupyter notebook. If None, no output will be printed or 
+        passed to the logging function.
 
     Outputs
     -------
-    <filename>_blv_tmp.fits : FITS file
-                Overscan-trimmed UVIS exposure (DN).
+    <filename>_flt.fits : FITS file
+        Calibrated UVIS image (e-).
     """
+
 
     call_list = ['wf32d.e']
     return_code = None

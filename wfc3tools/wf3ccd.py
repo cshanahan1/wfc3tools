@@ -49,12 +49,13 @@ def wf3ccd(input, output=None, verbose=False, quiet=True, log_func=print):
         Print messages only to trailer file.
     log_func: func()
         If not specified, the print function is used for logging to facilitate
-        use in the Jupyter notebook.
+        use in the Jupyter notebook. If None, no output will be printed or 
+        passed to the logging function.
 
     Outputs
     -------
     <filename>_blv_tmp.fits : FITS file
-                Overscan-trimmed UVIS exposure (DN).
+        Overscan-trimmed UVIS exposure (DN).
     """
 
     call_list = ['wf3ccd.e']
