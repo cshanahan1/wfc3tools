@@ -22,26 +22,6 @@ AUTHOR_EMAIL = metadata.get('author_email', 'help@stsci.edu')
 URL = metadata.get('url', 'https://wfc3tools.readthedocs.io/')
 LICENSE = metadata.get('licesnce', 'BSD')
 
-if os.path.exists('relic'):
-    sys.path.insert(1, 'relic')
-    import relic.release
-else:
-    try:
-        import relic.release
-    except ImportError:
-        try:
-            subprocess.check_call(['git', 'clone',
-                                   'https://github.com/jhunkeler/relic.git'])
-            sys.path.insert(1, 'relic')
-            import relic.release
-        except subprocess.CalledProcessError as e:
-            print(e)
-            exit(1)
-
-
-version = relic.release.get_info()
-relic.release.write_template(version, PACKAGENAME)
-
 
 class PyTest(TestCommand):
     def finalize_options(self):
@@ -58,7 +38,6 @@ class PyTest(TestCommand):
 
 setup(
     name=PACKAGENAME,
-    version=version.pep386,
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     description=DESCRIPTION,
