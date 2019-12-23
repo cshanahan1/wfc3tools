@@ -16,7 +16,45 @@ def wf3rej(input, output="", crrejtab="", scalense="", initgues="",
            skysub="", crsigmas="", crradius=0, crthresh=0,
            badinpdq=0, crmask=False, shadcorr=False, verbose=False,
            log_func=print):
-    """call the calwf3.e executable"""
+    """
+
+    Runs the calwf3 calibration subtask wf3rej on a single input WFC3 UVIS or IR
+    image.
+
+    The wf3rej program is used for both UVIS and IR images to combine multiple 
+    exposures contained in a CR-SPLIT or REPEAT-OBS. In the full UVIS 
+    calibration pipeline, `wf3rej` comes after the initial processing step 
+    `wf3ccd`, which outputs a `blv_tmp.fits' file. UVIS input to `wf3rej` must 
+    have the overscan pixels trimmed. In the IR pipeline, `wf3rej` is 
+    Parameters
+    ----------
+    input : str
+        Name of input file.
+    output : str
+        Name of the output FITS file.
+    crrejtab : string
+        Reference file name
+    scalense : str
+        Scale factor applied to noise.
+    initgues : str
+        Intial value estimate scheme (min|med)
+    skysub : str
+        How to compute the sky (none|mode|mean).
+    crsigmas : str
+        Rejection levels in each iteration.
+    crradius : float 
+        Cosmic ray expansion radius in pixels.
+    crthresh : float
+        Rejection propagation threshold.
+    badinpdq : int
+        Data quality flag bits to reject.
+    crmask :   bool
+        Flag CR in input DQ images?
+    shadcorr : bool
+        Perform shading shutter correction?
+    verbose : bool, optional
+        Print verbose time stamps?
+    """
 
     call_list = ["wf3rej.e"]
     return_code = None
